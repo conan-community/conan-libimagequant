@@ -34,6 +34,10 @@ set(HEADER_FILES    source_subfolder/blur.h
 add_library(${CMAKE_PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES C_STANDARD 99)
 
+if (MSVC AND BUILD_SHARED_LIBS)
+    set_target_properties(${PROJECT_NAME} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+endif()
+
 if (USE_SSE)
     target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC USE_SSE=1)
     if ((CMAKE_C_COMPILER_ID MATCHES "(Clang)|(GNU)") AND
